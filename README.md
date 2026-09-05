@@ -1,3 +1,3 @@
 # Алгоритмы и структуры данных
 
-* [Сортировки](lab1) - [Условия](Algorithms-and-data-structures/tree/main/lab1#readme)
+* [Сортировки](lab1) - [Условия](lab1#readme)
