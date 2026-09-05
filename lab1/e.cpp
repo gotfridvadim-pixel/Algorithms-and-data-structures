@@ -3,14 +3,12 @@
 using namespace std;
 
 void merge(vector<int>& arr, int left, int mid, int right) {
-    // Создаём временные массивы для половинок
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
     vector<int> left_arr(n1);
     vector<int> right_arr(n2);
 
-    // Копируем данные
     for (int i = 0; i < n1; i++) {
         left_arr[i] = arr[left + i];
     }
@@ -18,7 +16,6 @@ void merge(vector<int>& arr, int left, int mid, int right) {
         right_arr[i] = arr[mid + 1 + i];
     }
 
-    // Сливаем обратно в исходный массив
     int i = 0, j = 0, k = left;
 
     while (i < n1 && j < n2) {
@@ -33,7 +30,6 @@ void merge(vector<int>& arr, int left, int mid, int right) {
         k++;
     }
 
-    // Копируем остатки
     while (i < n1) {
         arr[k] = left_arr[i];
         i++;
@@ -50,11 +46,8 @@ void merge_sort(vector<int>& arr, int left, int right) {
     if (left < right) {
         int mid = left + (right - left) / 2;
 
-        // Сортируем половинки
         merge_sort(arr, left, mid);
         merge_sort(arr, mid + 1, right);
-
-        // Сливаем
         merge(arr, left, mid, right);
     }
 }
