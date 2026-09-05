@@ -1,3 +1,3 @@
-# Algorithms-and-data-structures
+# Алгоритмы и структуры данных
 
-## [Лабораторная работа 1](lab1)
+* [Сортировки](Algorithms-and-data-structures/tree/main/lab1) - [Условия](Algorithms-and-data-structures/tree/main/lab1#readme)
