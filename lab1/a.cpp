@@ -12,21 +12,21 @@ void SelectionSort(vector<int>& A) {
                 max_idx = j;
             }
         }
-        swap(A[i], A[max_idx]); // меняем местами
+        swap(A[i], A[max_idx]);
     }
 }
-//--------
+
 int main() {
-    vector<int> data; //создание пустого дин. массива data
-    string line; // строка для ввода всех чисел line
+    vector<int> data;
+    string line;
 
-    getline(cin, line); // ввод строки строки
+    getline(cin, line);
 
 
-    stringstream ss(line); // создание потока для чтения line
+    stringstream ss(line);
     int x;
-    while (ss >> x) { // пока ss считается числом, т.к. x является типом int
-        data.push_back(x); //добавление x в конец data
+    while (ss >> x) {
+        data.push_back(x);
     }
 
     SelectionSort(data);
