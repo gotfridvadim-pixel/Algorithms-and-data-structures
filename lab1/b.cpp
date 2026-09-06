@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 #include <vector>
-#include <sstream>
 using namespace std;
 
 void InsertionSort(vector<int>& A) {
@@ -18,16 +17,12 @@ void InsertionSort(vector<int>& A) {
 
 int main() {
     vector<int> data;
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
     int x;
-    while (ss >> x) {
+    while (cin >> x) {
         data.push_back(x);
     }
 
     InsertionSort(data);
-
 
     for (int i = 0; i < data.size(); i++) {
         cout << data[i] << " ";
