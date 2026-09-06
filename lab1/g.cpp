@@ -1,8 +1,8 @@
 ﻿#include <iostream>
 #include <vector>
 #include <algorithm>
-#include <string>
-#include <sstream>
+
+
 
 using namespace std;
 
@@ -26,13 +26,10 @@ void CountSort(vector<int>& A) {
 
 int main() {
     vector<int> arr;
-    string input;
     
-    getline(cin, input);
-    stringstream ss(input);
     int num;
     
-    while (ss >> num) {
+    while (cin >> num) {
         arr.push_back(num);
     }
     
