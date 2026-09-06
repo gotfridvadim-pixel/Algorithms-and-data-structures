@@ -12,7 +12,7 @@ Points = []
 
 for i in range(n):
     x, y = map(int, input().split())
-    # Сохраняем сам объект структуры Point в массив
+
     Points.append(Point(x, y))
 Points.sort(key=lambda p: p.x**2 + p.y**2)
 for p in Points:
