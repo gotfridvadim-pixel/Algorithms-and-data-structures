@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <sstream>
+
 using namespace std;
 
 void SelectionSort(vector<int>& A) {
@@ -18,14 +18,12 @@ void SelectionSort(vector<int>& A) {
 
 int main() {
     vector<int> data;
-    string line;
-
-    getline(cin, line);
 
 
-    stringstream ss(line);
+
+
     int x;
-    while (ss >> x) {
+    while (cin >> x) {
         data.push_back(x);
     }
 
