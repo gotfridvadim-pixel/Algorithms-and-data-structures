@@ -1,22 +1,20 @@
-def CountSort(A):
-    if len(A) <= 1:
-        return A
-    min_val = min(A)
-    max_val = max(A)
-    range_size = max_val - min_val + 1
-    count = [0] * range_size
-
-    for i in A:
-        count[i - min_val] += 1
-
-    A[:] = []
-    for num in range(range_size):
-        A.extend([num + min_val] * count[num])
+from random import *
 
 
+def fast_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    val = arr[randint(0, len(arr) - 1)]
+    left = [i for i in arr if i < val]
+    midle = [i for i in arr if i == val]
+    right = [i for i in arr if i > val]
+    return fast_sort(left) + midle + fast_sort(right)
+
+
+n = int(input())
 arr = input().split()
-for i in range(len(arr)):
+for i in range(n):
     arr[i] = int(arr[i])
 
-CountSort(arr)
+arr = fast_sort(arr)
 print(*arr)
