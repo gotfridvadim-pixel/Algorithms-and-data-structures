@@ -2,29 +2,29 @@ from collections import deque
 
 class Queue:
     def __init__(self):
-        self.queue = deque()
+        self.init = []
 
     def push(self, n):
-        self.queue.append(n)
+        self.init.append(n)
         print('ok')
 
     def pop(self):
-        if not self.queue:
+        if not self.init:
             print('error')
             return
-        print(self.queue.popleft())
+        print(self.init.pop(0))
 
     def front(self):
-        if not self.queue:
+        if not self.init:
             print('error')
             return
-        print(self.queue[0])
+        print(self.init[0])
 
     def size(self):
-        print(len(self.queue))
+        print(len(self.init))
 
     def clear(self):
-        self.queue.clear()
+        self.init.clear()
         print('ok')
 
 
