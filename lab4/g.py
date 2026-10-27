@@ -15,7 +15,6 @@ pos = 0
 current_time = 0
 
 while heap:
-    print(heap)
     time, ind = heapq.heappop(heap)
 
     if current_time + abs(pos-ind) > time:
