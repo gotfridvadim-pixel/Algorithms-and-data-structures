@@ -6,7 +6,7 @@ a = list(map(int, input().split()))
 deq = deque()
 
 for i in range(n):
-    while deq and deq[0] <= i - k:
+    if deq and deq[0] <= i - k:
         deq.popleft()
 
     while deq and a[deq[-1]]>= a[i]:

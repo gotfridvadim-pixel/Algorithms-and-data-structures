@@ -2,7 +2,7 @@ from collections import deque
 import sys 
 n = int(input())
 deq1 = deque()
-deq2 = deque()
+deq2 = deque()Ё
 for i in range(n):
     command = sys.stdin.readline().split()
     
