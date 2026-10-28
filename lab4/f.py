@@ -11,7 +11,7 @@ for _ in range(n):
 a.sort()
 
 heap = []
-answer = 0
+res = 0
 
 for t, l in a:
     while heap and heap[0] <= t:
@@ -19,6 +19,6 @@ for t, l in a:
 
     heapq.heappush(heap, t + l)
 
-    answer = max(answer, len(heap))
+    res = max(res, len(heap))
 
-print(answer)
+print(res)

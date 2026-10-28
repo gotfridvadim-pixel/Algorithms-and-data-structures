@@ -3,4 +3,4 @@
 *.obj
 *.pdb
 *.vscode/**
-*.ilk
+*__pycache__/**
