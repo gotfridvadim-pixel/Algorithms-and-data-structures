@@ -11,10 +11,10 @@ def main():
         else:
             raise TypeError('Непподерживаемый тип ключа')
 
-    table = HashTable()
-    table.insert('name', 'Ivan')
-    table.insert('surname', 'Raviol')
-    table.insert('number', 89121233333)
+    table = HashTable(auto_resize=False)
+    table.insert('1', 'Ivan')
+    table.insert('2', 'Raviol')
+    table.insert('3', 89121233333)
 
     table['key'] = 'key'
     print(table.get_view())

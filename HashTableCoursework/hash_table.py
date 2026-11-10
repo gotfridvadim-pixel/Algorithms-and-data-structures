@@ -12,7 +12,7 @@ class HashTable:
         def __str__(self):
             return f'{self.key} -> {self.next}'
 
-    def __init__(self, capacity=8, hash_func=additive_hash):
+    def __init__(self, capacity=8, hash_func=additive_hash, auto_resize=True):
         if isinstance(capacity, bool) or not isinstance(capacity, int):
             raise TypeError("Вместимость должна быть целым числом")
 
@@ -22,6 +22,19 @@ class HashTable:
         self.__buckets = [None] * capacity
         self.__size = 0
         self.__hash_func = hash_func
+        self.auto_resize = auto_resize
+
+    @property
+    def auto_resize(self):
+        """Включено ли автоматическое увеличение количества корзин."""
+        return self.__auto_resize
+
+    @auto_resize.setter
+    def auto_resize(self, enabled):
+        """Переключает рехеширование; новый режим действует при вставке."""
+        if not isinstance(enabled, bool):
+            raise TypeError("Переключатель рехеширования должен иметь тип bool")
+        self.__auto_resize = enabled
 
     # Перегрузка извлечения []
     def __getitem__(self, key): 
@@ -47,7 +60,7 @@ class HashTable:
         
         alpha = self.__size / len(self.__buckets)
 
-        if alpha >= 1:
+        if self.__auto_resize and alpha >= 1:
             self.__resize()
             self.insert(key, value)
             return
@@ -80,7 +93,7 @@ class HashTable:
         alpha = self.__size /  len(self.__buckets)
         
         # Расширяем таблицу перед превышением коэффициента загрузки 1.
-        if alpha >= 1:
+        if self.__auto_resize and alpha >= 1:
             self.__resize()
             
         index = self.__get_hash(key)
