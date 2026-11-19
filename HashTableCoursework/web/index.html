@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f8">
+  <title>Хеш-таблица · Структуры данных</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header><div class="wrap bar">
+    <span class="brand"><b aria-hidden="true">#</b> Структуры данных</span>
+    <a href="#principle">Как это работает</a>
+  </div></header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div><p class="eyebrow">Метод цепочек</p>
+        <h1 id="title">Хеш-таблица<span>.</span></h1>
+        <p class="intro">Добавляйте ключи и следите, как хеш-функция распределяет их по корзинам.</p>
+      </div>
+      <div class="illustration" role="img" aria-label="Индекс корзины равен остатку от деления хеша на число корзин">
+        <span class="orbit"></span><span class="formula">h(k) <i>mod</i> m</span>
+      </div>
+    </section>
+    <div class="workspace">
+      <section class="panel controls">
+        <h2>Операции</h2>
+        <form id="controls">
+          <fieldset id="fields" disabled>
+            <legend class="sr">Операция с таблицей</legend>
+            <div class="modes">
+              <label><input type="radio" name="action" value="put" checked><span>Вставка</span></label>
+              <label><input type="radio" name="action" value="find"><span>Поиск</span></label>
+              <label><input type="radio" name="action" value="delete"><span>Удаление</span></label>
+            </div>
+            <label class="field">Ключ<input name="key" required maxlength="48" placeholder="Например, дом" autocomplete="off"></label>
+            <label class="field" id="value-field">Значение<input name="value" required maxlength="96" placeholder="Например, здание" autocomplete="off"></label>
+            <button id="submit">Добавить в таблицу</button>
+          </fieldset>
+        </form>
+        <div class="feedback" role="status"><p id="result">Загружаем таблицу…</p><code id="calculation"></code></div>
+        <button id="retry" class="secondary" hidden>Повторить загрузку</button>
+        <noscript>Включите JavaScript для работы с таблицей.</noscript>
+      </section>
+      <section class="panel board" aria-labelledby="board-title">
+        <div class="board-head"><h2 id="board-title">Состояние таблицы</h2><span class="capacity" id="capacity"></span></div>
+        <div class="plot">
+          <div class="column-head"><span>Индекс</span><span>Цепочка</span></div>
+          <ol id="buckets" start="0" aria-label="Корзины"></ol>
+        </div>
+        <div class="stats">
+          <div><span>Пар в таблице</span><strong id="size">—</strong></div>
+          <div><span>Загрузка</span><strong id="load">—</strong></div>
+          <div><span>Макс. цепочка</span><strong id="longest">—</strong></div>
+        </div>
+      </section>
+    </div>
+    <details id="principle"><summary>Как это работает</summary>
+      <p>Хеш-функция складывает коды символов ключа. Остаток от деления суммы на число корзин задаёт индекс. У слов «кот» и «ток» одинаковая сумма, поэтому обе пары попадают в одну цепочку. При поиске Python проверяет её узлы по очереди.</p>
+      <p>При вставке нового ключа в таблицу с загрузкой 100 % число корзин удваивается. Python заново распределяет пары по индексам. Повторная вставка существующего ключа обновляет его значение.</p>
+    </details>
+  </main>
+</body>
+</html>

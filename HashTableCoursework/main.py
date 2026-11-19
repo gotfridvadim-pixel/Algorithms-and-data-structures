@@ -17,7 +17,12 @@ def main():
     table.insert('3', 89121233333)
 
     table['key'] = 'key'
-    print(table.get_view())
+    # print(table.get_view())
+    table.auto_resize = False
+    table.insert('4', 'Ivan')
+    # print(table.get_view())
+    for bucket in enumerate(table.get_view(), start=1):
+        print(bucket)
 
 
     

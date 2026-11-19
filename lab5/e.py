@@ -49,7 +49,6 @@ class BinaryTree:
     def print_sorted(self):
         for node in self._inorder(self.root):
             print(node.data, sep="\n")
-        print()
 
 tree = BinaryTree()
 

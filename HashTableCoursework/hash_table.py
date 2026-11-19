@@ -2,17 +2,18 @@ from hash_functions import additive_hash
 
 
 class HashTable:
-
     class Node:
         def __init__(self, key, value):
+
             self.key = key
             self.value = value
             self.next = None
 
         def __str__(self):
-            return f'{self.key} -> {self.next}'
 
+            return f'{self.key} -> {self.next}'
     def __init__(self, capacity=8, hash_func=additive_hash, auto_resize=True):
+
         if isinstance(capacity, bool) or not isinstance(capacity, int):
             raise TypeError("Вместимость должна быть целым числом")
 
@@ -24,20 +25,8 @@ class HashTable:
         self.__hash_func = hash_func
         self.auto_resize = auto_resize
 
-    @property
-    def auto_resize(self):
-        """Включено ли автоматическое увеличение количества корзин."""
-        return self.__auto_resize
-
-    @auto_resize.setter
-    def auto_resize(self, enabled):
-        """Переключает рехеширование; новый режим действует при вставке."""
-        if not isinstance(enabled, bool):
-            raise TypeError("Переключатель рехеширования должен иметь тип bool")
-        self.__auto_resize = enabled
-
-    # Перегрузка извлечения []
     def __getitem__(self, key): 
+
         index = self.__get_hash(key)
         bucket = self.__buckets[index]
         _, node = self.__find_node(bucket, key)
@@ -47,9 +36,7 @@ class HashTable:
 
         raise KeyError(key)
     
-    # Перегрузка присвоения по []
     def __setitem__(self, key, value):
-        """Добавляет новый ключ или обновляет существующий."""
         index = self.__get_hash(key)
         bucket = self.__buckets[index]
         previous, node = self.__find_node(bucket, key)
@@ -71,7 +58,6 @@ class HashTable:
             self.__buckets[index] = self.Node(key, value)
         self.__size += 1
 
-    # Перегрузка in
     def __contains__(self, key):
         index = self.__get_hash(key)
         bucket = self.__buckets[index]
@@ -88,6 +74,18 @@ class HashTable:
         return self.__size
 
     def insert(self, key, value):
+        """Добавляет новую пару ключ–значение в хеш-таблицу.
+
+        Входные данные:
+            key: Ключ нового элемента.
+            value: Значение нового элемента.
+
+        Возвращаемое значение:
+            None.
+
+        Исключения:
+            KeyError: Если указанный ключ уже существует.
+        """
         
         # Делаем рехеширование
         alpha = self.__size /  len(self.__buckets)
@@ -110,12 +108,27 @@ class HashTable:
         self.__size += 1
 
     def items(self):
+        """Последовательно перебирает пары ключ–значение таблицы.
+
+        Входные данные:
+            Нет.
+
+        Возвращаемое значение:
+            iterator: Итератор по кортежам (key, value).
+        """
         for bucket in self.__buckets:
             for node in self.__iter_bucket(bucket):
                 yield (node.key, node.value)
 
-
     def search(self, key):
+        """Ищет значение, связанное с указанным ключом.
+
+        Входные данные:
+            key: Искомый ключ.
+
+        Возвращаемое значение:
+            Значение найденного элемента или None, если ключ отсутствует.
+        """
         index = self.__get_hash(key)
         bucket = self.__buckets[index]
         _, node = self.__find_node(bucket, key)
@@ -126,6 +139,14 @@ class HashTable:
         return None
     
     def delete(self, key):
+        """Удаляет элемент с указанным ключом, если он существует.
+
+        Входные данные:
+            key: Ключ удаляемого элемента.
+
+        Возвращаемое значение:
+            None.
+        """
         index = self.__get_hash(key)
         bucket = self.__buckets[index]
         previous, node = self.__find_node(bucket, key)
@@ -141,17 +162,68 @@ class HashTable:
         self.__size -= 1
 
     def get_view(self):
-        """Возвращает список корзин с парами (key, value)."""
+        """Формирует представление содержимого всех корзин таблицы.
+
+        Входные данные:
+            Нет.
+
+        Возвращаемое значение:
+            list(list[tuple]): Список корзин с кортежами (key, value).
+        """
         return [
             [(node.key, node.value) for node in self.__iter_bucket(bucket)]
             for bucket in self.__buckets
         ]
 
+    @property
+    def auto_resize(self):
+        """Показывает, включено ли автоматическое увеличение числа корзин.
+
+        Входные данные:
+            Нет.
+
+        Возвращаемое значение:
+            bool: True, если автоматическое расширение включено, иначе False.
+        """
+        return self.__auto_resize
+
+    @auto_resize.setter
+    def auto_resize(self, enabled):
+        """Включает или отключает автоматическое расширение таблицы.
+
+        Входные данные:
+            enabled (bool): Новое состояние автоматического расширения.
+
+        Возвращаемое значение:
+            None.
+        """
+        if not isinstance(enabled, bool):
+            raise TypeError("Переключатель рехеширования должен иметь тип bool")
+        self.__auto_resize = enabled
+
     def __get_hash(self, key):
+        """Вычисляет индекс корзины для указанного ключа.
+
+        Входные данные:
+            key: Ключ, для которого требуется определить корзину.
+
+        Возвращаемое значение:
+            int: Индекс корзины в диапазоне размеров таблицы.
+        """
         return self.__hash_func(key) % len(self.__buckets)
 
     def __find_node(self, bucket, key):
-        """Возвращает предыдущий и найденный узлы либо пару (None, None)."""
+        """Ищет узел с указанным ключом внутри цепочки корзины.
+
+        Входные данные:
+            bucket (Node | None): Первый узел цепочки корзины.
+            key: Искомый ключ.
+
+        Возвращаемое значение:
+            tuple[Node | None, Node | None]: Предыдущий и найденный узлы.
+            Если ключ не найден, второй элемент равен None, а первый содержит
+            последний узел цепочки либо None для пустой корзины.
+        """
 
         previous = None
 
@@ -163,13 +235,28 @@ class HashTable:
         return previous, None
 
     def __iter_bucket(self, bucket):
-        """Перебор узлов внутри корзины."""
+        """Последовательно перебирает узлы одной корзины.
+
+        Входные данные:
+            bucket (Node | None): Первый узел цепочки корзины.
+
+        Возвращаемое значение:
+            iterator: Итератор по узлам цепочки.
+        """
         current = bucket
         while current:
             yield current
             current = current.next
 
     def __resize(self):
+        """Удваивает число корзин и заново распределяет все элементы.
+
+        Входные данные:
+            Нет.
+
+        Возвращаемое значение:
+            None.
+        """
         new_buckets = [None] * len(self.__buckets) * 2
         old_buckets = self.__buckets
         self.__buckets = new_buckets

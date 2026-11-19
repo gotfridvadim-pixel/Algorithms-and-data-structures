@@ -57,10 +57,6 @@ class BinaryTree:
 
         return parent.data
 
-    
-
-
-
 tree = BinaryTree()
 
 for x in map(int, sys.stdin.read().split()):

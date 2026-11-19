@@ -4,3 +4,4 @@
 *.pdb
 *.vscode/**
 *__pycache__/**
+*.docx
